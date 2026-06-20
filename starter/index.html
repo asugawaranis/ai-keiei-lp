@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI組織化スターターパック | 企業診断＆AI組織構築【毎月3社限定】</title>
+  <style>
+    :root {
+      --gold: #B8822A;
+      --gold-light: #D4A44A;
+      --gold-pale: #F2E6CC;
+      --bg: #FAF8F3;
+      --bg2: #F2EBE0;
+      --text: #2A2620;
+      --text-light: #6B5E4E;
+      --white: #FFFFFF;
+      --border: #DDD0B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', 'Noto Serif JP', Georgia, serif;
+      background: #EDE6D8;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    .container { max-width: 520px; margin: 0 auto; padding: 0 24px; }
+    .page-frame {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--bg);
+      box-shadow: 0 0 60px rgba(120,100,60,0.10);
+      overflow: hidden;
+    }
+
+    /* ======= 共通 ======= */
+    .limited-bar {
+      background: var(--gold);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      letter-spacing: 3px;
+    }
+    .section { padding: 52px 0; }
+    .section-alt { background: var(--bg2); padding: 52px 0; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .badge-wrap {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-bottom: 18px;
+    }
+    .badge-text {
+      color: var(--gold); font-size: 13px; letter-spacing: 3px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; font-weight: 700; padding: 0 4px;
+    }
+    .laurel { width: 38px; height: 30px; }
+    .laurel--right { transform: scaleX(-1); }
+
+    .btn-cta {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #B8822A 0%, #D4A44A 50%, #B8822A 100%);
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      padding: 18px 40px 18px 24px;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(184,130,42,0.35);
+      transition: all 0.2s;
+      border: none;
+      position: relative;
+    }
+    .btn-cta::after {
+      content: '›'; position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
+      font-size: 24px; line-height: 1;
+    }
+    .btn-cta:hover { box-shadow: 0 6px 24px rgba(184,130,42,0.5); transform: translateY(-2px); }
+    .cta-note {
+      text-align: center; font-size: 11px; color: var(--text-light);
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; margin-top: 10px; line-height: 1.9;
+    }
+
+    /* ======= HERO ======= */
+    .hero {
+      padding: 36px 0 44px; text-align: center; position: relative; overflow: hidden;
+    }
+    .leaf-left, .leaf-right {
+      position: absolute; top: -10px; width: 180px; height: auto; pointer-events: none; z-index: 0;
+    }
+    .leaf-left { left: -40px; }
+    .leaf-right { right: -40px; transform: scaleX(-1); }
+    .hero h1 {
+      font-size: 26px; font-weight: 700; line-height: 1.5; margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .hero h1 .gold { color: var(--gold); }
+    .ornament { color: var(--gold); margin: 10px 0 18px; }
+    .hero-lead {
+      font-size: 16px; font-weight: 700; line-height: 1.7; margin-bottom: 16px;
+      position: relative; z-index: 1; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .hero-lead .gold { color: var(--gold); }
+    .hero-ribbon {
+      display: inline-block; background: var(--white); border: 1.5px solid var(--gold); color: var(--gold);
+      font-weight: 700; font-size: 15px; padding: 8px 20px; border-radius: 6px; margin-bottom: 8px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .hero-product {
+      font-size: 22px; font-weight: 700; margin-bottom: 20px; line-height: 1.4;
+    }
+    .hero-sub {
+      font-size: 15px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      color: var(--text-light); margin-bottom: 24px;
+    }
+
+    /* ======= お悩み ======= */
+    .pain-list { list-style: none; }
+    .pain-list li {
+      padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 15px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pain-list li:first-child { border-top: 1px solid var(--border); }
+    .pain-check { color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .pain-conclusion {
+      text-align: center; margin-top: 28px; font-size: 20px; font-weight: 700; line-height: 1.7;
+    }
+    .pain-conclusion .gold { color: var(--gold); font-size: 24px; }
+    .down-arrow { text-align: center; font-size: 26px; color: var(--gold); margin: 16px 0; }
+
+    /* ======= 声 ======= */
+    .testimonial-card {
+      background: var(--white); border-radius: 12px; padding: 22px 18px; margin-bottom: 14px; border: 1px solid var(--border);
+    }
+    .testimonial-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .testimonial-head img {
+      width: 68px; height: 68px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--border);
+    }
+    .testimonial-stars { color: var(--gold); font-size: 13px; margin-bottom: 3px; }
+    .testimonial-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+    .testimonial-company {
+      font-size: 11px; color: var(--text-light); font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; line-height: 1.5;
+    }
+    .testimonial-headline { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 10px; }
+    .testimonial-body {
+      font-size: 13px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; color: var(--text); line-height: 1.85;
+    }
+
+    /* ======= 理由ボックス ======= */
+    .reason-box {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px; margin-bottom: 16px;
+    }
+    .reason-list { list-style: none; margin: 16px 0; }
+    .reason-list li {
+      font-size: 15px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      padding: 8px 0; display: flex; gap: 8px; align-items: flex-start;
+    }
+    .reason-list li::before { content: '・'; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+    .lead-msg { text-align: center; font-size: 18px; font-weight: 700; line-height: 1.7; }
+    .lead-msg .gold { color: var(--gold); }
+
+    /* ======= STEP ======= */
+    .step-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 26px 22px; margin-bottom: 16px; position: relative;
+    }
+    .step-tag {
+      display: inline-block; background: var(--gold); color: white; font-size: 13px; font-weight: 700;
+      padding: 4px 16px; border-radius: 20px; margin-bottom: 12px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; letter-spacing: 1px;
+    }
+    .step-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
+    .step-card .desc {
+      font-size: 14px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; color: var(--text-light); margin-bottom: 14px; line-height: 1.7;
+    }
+    .check-list { list-style: none; }
+    .check-list li {
+      font-size: 14px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      padding: 7px 0; display: flex; gap: 10px; align-items: flex-start; border-bottom: 1px solid var(--bg2);
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li::before {
+      content: '✓'; color: var(--white); background: var(--gold);
+      width: 20px; height: 20px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0;
+    }
+    .step-result {
+      text-align: center; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border);
+      font-size: 16px; font-weight: 700; color: var(--gold);
+    }
+
+    /* ======= イメージ訴求 ======= */
+    .image-box {
+      background: var(--gold-pale); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px 20px; margin-bottom: 14px;
+      font-size: 14px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; line-height: 1.85;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .image-box::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+
+    /* ======= サービス全体像（フロー） ======= */
+    .flow-vert { text-align: center; }
+    .flow-box {
+      background: var(--white); border: 2px solid var(--gold); border-radius: 12px;
+      padding: 18px; margin: 0 auto; max-width: 320px;
+    }
+    .flow-box .step-tag { margin-bottom: 8px; }
+    .flow-box .flow-name { font-size: 18px; font-weight: 700; }
+    .flow-arrow { font-size: 26px; color: var(--gold); margin: 8px 0; }
+
+    /* ======= 料金 ======= */
+    .price-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 20px; margin-bottom: 16px; text-align: center;
+    }
+    .price-step-tag {
+      display: inline-block; background: var(--bg2); color: var(--text); font-size: 13px; font-weight: 700;
+      padding: 4px 16px; border-radius: 20px; margin-bottom: 10px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .price-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+    .price-old {
+      font-size: 15px; color: var(--text-light); text-decoration: line-through;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .price-new {
+      font-size: 26px; font-weight: 700; color: var(--gold); margin: 4px 0;
+    }
+    .price-note {
+      font-size: 11px; color: var(--text-light); font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .price-plus { text-align: center; font-size: 30px; color: var(--gold); font-weight: 700; margin: 8px 0; }
+    .price-set {
+      background: linear-gradient(160deg, #FBF4E4 0%, #F5E8CC 100%);
+      border: 2px solid var(--gold); border-radius: 16px; padding: 28px 22px; text-align: center; margin-top: 8px;
+    }
+    .price-set .set-label {
+      font-size: 14px; font-weight: 700; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; margin-bottom: 4px;
+    }
+    .price-set h3 { font-size: 18px; font-weight: 700; margin-bottom: 14px; line-height: 1.5; }
+    .price-set .price-old { font-size: 16px; }
+    .price-set .price-new { font-size: 38px; }
+    .price-set .limited {
+      display: inline-block; background: var(--gold); color: white; font-size: 13px; font-weight: 700;
+      padding: 5px 18px; border-radius: 20px; margin-top: 12px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+
+    /* ======= プロフィール ======= */
+    .profile-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 20px; margin-bottom: 16px;
+    }
+    .profile-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 3px; }
+    .profile-role { font-size: 13px; color: var(--gold); font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; margin-bottom: 6px; font-weight: 700; }
+    .profile-tagline {
+      font-size: 13px; font-weight: 700; background: var(--bg2); display: inline-block; padding: 4px 10px; border-radius: 4px; margin-bottom: 12px;
+    }
+    .profile-bio {
+      font-size: 13px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; color: var(--text-light); margin-bottom: 14px; line-height: 1.75;
+    }
+    .profile-card .label {
+      font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 6px;
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    }
+    .profile-card ul { list-style: none; }
+    .profile-card ul li {
+      font-size: 13px; font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; padding: 3px 0; display: flex; gap: 6px;
+    }
+    .profile-card ul li::before { content: '・'; color: var(--gold); flex-shrink: 0; }
+
+    /* ======= PC最適化 ======= */
+    @media (min-width: 768px) {
+      .page-frame { max-width: 960px; box-shadow: 0 0 80px rgba(120,100,60,0.12); }
+      .container { max-width: 600px; }
+      .container--wide { max-width: 860px; }
+      .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+      .testimonial-card { margin-bottom: 0; }
+      .testimonial-card--featured { grid-column: 1 / -1; }
+      .hero { padding: 48px 0 56px; }
+      .hero h1 { font-size: 30px; }
+      .leaf-left, .leaf-right { width: 210px; }
+      .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+      .price-row .price-card { margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-frame">
+
+<div class="limited-bar">【毎月3社限定】</div>
+
+<!-- ======= HERO ======= -->
+<section class="hero">
+  <img class="leaf-left" src="../assets/leaf.svg" alt="" aria-hidden="true">
+  <img class="leaf-right" src="../assets/leaf.svg" alt="" aria-hidden="true">
+
+  <div class="container">
+    <div class="badge-wrap">
+      <svg class="laurel" viewBox="0 0 38 30" fill="none"><path d="M35 27 C25 25 13 20 6 9" stroke="#B8822A" stroke-width="1.2" fill="none"/><g fill="#C19A4A" fill-opacity="0.85"><ellipse cx="9" cy="11" rx="3.4" ry="1.7" transform="rotate(-58 9 11)"/><ellipse cx="13" cy="16" rx="3.6" ry="1.8" transform="rotate(-46 13 16)"/><ellipse cx="18" cy="20" rx="3.8" ry="1.9" transform="rotate(-32 18 20)"/><ellipse cx="24" cy="23" rx="3.8" ry="1.9" transform="rotate(-20 24 23)"/><ellipse cx="30" cy="25.5" rx="3.6" ry="1.8" transform="rotate(-10 30 25.5)"/></g><g fill="#D4AF61" fill-opacity="0.65"><ellipse cx="11.5" cy="9" rx="3" ry="1.5" transform="rotate(-78 11.5 9)"/><ellipse cx="16" cy="13.5" rx="3.3" ry="1.6" transform="rotate(-66 16 13.5)"/><ellipse cx="21.5" cy="17.5" rx="3.4" ry="1.7" transform="rotate(-52 21.5 17.5)"/><ellipse cx="27.5" cy="21" rx="3.4" ry="1.7" transform="rotate(-40 27.5 21)"/></g></svg>
+      <span class="badge-text">毎月3社限定</span>
+      <svg class="laurel laurel--right" viewBox="0 0 38 30" fill="none"><path d="M35 27 C25 25 13 20 6 9" stroke="#B8822A" stroke-width="1.2" fill="none"/><g fill="#C19A4A" fill-opacity="0.85"><ellipse cx="9" cy="11" rx="3.4" ry="1.7" transform="rotate(-58 9 11)"/><ellipse cx="13" cy="16" rx="3.6" ry="1.8" transform="rotate(-46 13 16)"/><ellipse cx="18" cy="20" rx="3.8" ry="1.9" transform="rotate(-32 18 20)"/><ellipse cx="24" cy="23" rx="3.8" ry="1.9" transform="rotate(-20 24 23)"/><ellipse cx="30" cy="25.5" rx="3.6" ry="1.8" transform="rotate(-10 30 25.5)"/></g><g fill="#D4AF61" fill-opacity="0.65"><ellipse cx="11.5" cy="9" rx="3" ry="1.5" transform="rotate(-78 11.5 9)"/><ellipse cx="16" cy="13.5" rx="3.3" ry="1.6" transform="rotate(-66 16 13.5)"/><ellipse cx="21.5" cy="17.5" rx="3.4" ry="1.7" transform="rotate(-52 21.5 17.5)"/><ellipse cx="27.5" cy="21" rx="3.4" ry="1.7" transform="rotate(-40 27.5 21)"/></g></svg>
+    </div>
+
+    <h1>「人を増やさず<span class="gold">利益を伸ばしたい</span>」<br>経営者様へ。</h1>
+
+    <div class="ornament">
+      <svg width="120" height="12" viewBox="0 0 120 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 6 Q30 2 60 6 Q90 10 120 6" stroke="#B8822A" stroke-width="0.8" fill="none" opacity="0.6"/><circle cx="60" cy="6" r="2" fill="#B8822A" opacity="0.7"/><circle cx="45" cy="6" r="1.2" fill="#B8822A" opacity="0.4"/><circle cx="75" cy="6" r="1.2" fill="#B8822A" opacity="0.4"/></svg>
+    </div>
+
+    <p class="hero-lead">
+      あなたの会社は<br>年間いくら利益を<span class="gold">取りこぼして</span>いますか？
+    </p>
+    <p class="hero-sub">
+      売上機会損失・業務ロス・属人化を見える化し、<br>
+      AI組織化によって<br>
+      <strong style="color:var(--text); font-size:15px;">「社長が経営に集中できる組織」をつくります。</strong>
+    </p>
+
+    <div class="hero-ribbon">【90日改善ロードマップ付き】</div>
+    <p class="hero-product">企業診断 ＆ AI組織構築</p>
+
+    <p class="hero-sub" style="margin-bottom:20px;">まずは現状を把握し、<br>最適なAI組織化を始めませんか？</p>
+
+    <a href="#cta" class="btn-cta">無料相談を予約する（日程調整）</a>
+    <p class="cta-note">※無理な営業はありません</p>
+  </div>
+</section>
+
+<!-- ======= お悩み ======= -->
+<section class="section-alt">
+  <div class="container">
+    <p class="section-title">こんなお悩み<br>ありませんか？</p>
+    <ul class="pain-list">
+      <li><span class="pain-check">✔</span>売上は伸びているのに忙しい</li>
+      <li><span class="pain-check">✔</span>AIを導入したいが何から始めればいいかわからない</li>
+      <li><span class="pain-check">✔</span>社長しか判断できない</li>
+      <li><span class="pain-check">✔</span>スタッフ教育に時間がかかる</li>
+      <li><span class="pain-check">✔</span>属人化している</li>
+      <li><span class="pain-check">✔</span>人を増やしても利益が残らない</li>
+    </ul>
+    <div class="down-arrow">↓</div>
+    <p class="pain-conclusion">
+      実は問題は「人手不足」ではなく<br>
+      <span class="gold">「構造」</span>にあります。
+    </p>
+  </div>
+</section>
+
+<!-- ======= お客様の声 ======= -->
+<section class="section">
+  <div class="container container--wide">
+    <p class="section-title">お客様の声</p>
+
+    <div class="testimonial-grid">
+    <div class="testimonial-card testimonial-card--featured">
+      <div class="testimonial-head">
+        <img src="../assets/miyake.png" alt="三宅裕之様">
+        <div>
+          <p class="testimonial-stars">★★★★★ 非常に満足</p>
+          <p class="testimonial-name">三宅裕之 様</p>
+          <p class="testimonial-company">シナジープラス株式会社 代表取締役<br>EYWA. PTE. LTD. CEO（Singapore）</p>
+        </div>
+      </div>
+      <p class="testimonial-headline">「AIを使っているつもり」が「やるべきことが明確」に変わりました。</p>
+      <p class="testimonial-body">AIによって何ができるのかを明確にしたくて診断を受けました。診断結果をさらにAIで分析していただいたことで、課題と優先順位が整理され、成果につながる行動が明確になりました。AIの進化は速く、専門家の伴走なしでは取り残されると感じています。丁寧な対応とお人柄にも安心感があり、非常に満足しています。</p>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-stars">★★★★★ 非常に満足</p>
+      <p class="testimonial-name" style="margin-bottom:10px;">松川幸弘 様</p>
+      <p class="testimonial-headline">「優秀なチームが増えたような感覚です」</p>
+      <p class="testimonial-body">「パソコンの向こう側に何人もの優秀なメンバーがいて、一緒に仕事をしているような感覚」になりました。特に、AI役員同士のチームワークには感動しています。一人で仕事をしている感覚がなくなり、頼れる経営チームができたように感じています。</p>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-stars">★★★★★ 非常に満足</p>
+      <p class="testimonial-headline" style="margin-bottom:10px;">「何から手をつければいいか迷わなくなりました」</p>
+      <p class="testimonial-body">やることが多すぎて、何から始めればいいのか分からず、途中で止まってしまうことがありました。導入後は「今やるべきこと」「次のタスク」「優先順位」が明確になり、順番に進められるようになりました。緊急度まで整理してもらえるので、迷わず行動できるようになっています。</p>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-stars">★★★★★ 非常に満足</p>
+      <p class="testimonial-headline" style="margin-bottom:10px;">「一人では思いつかない視点をもらえるようになりました」</p>
+      <p class="testimonial-body">営業や集客、自分の事業をどう具体化するかに悩んでいました。AI役員との壁打ちによって、自分の考えやリソースを整理でき、思考が広がりました。時間が短縮されるだけでなく、考える質そのものが変わりました。</p>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-stars">★★★★★ 非常に満足</p>
+      <p class="testimonial-headline" style="margin-bottom:10px;">「自分しかできない仕事に集中できるようになりました」</p>
+      <p class="testimonial-body">これまではAIを雑務の補助程度にしか使えていませんでした。導入後は「自分にしかできない仕事」に集中できるようになりました。さまざまな視点からアドバイスをもらえるため、経営判断もしやすくなっています。</p>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-stars">★★★★★ 非常に満足</p>
+      <p class="testimonial-headline" style="margin-bottom:10px;">「5人の役員が一緒に考えてくれる心強さがあります」</p>
+      <p class="testimonial-body">一人経営のため、集客や経理、施術メニューなど、すべてを一人で考えることに限界を感じていました。社長の悩みや考えを伝えると、5人のAI役員が一緒に解決策を考えてくれるので、とても心強く感じています。</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= AI導入だけでは成果が出ない理由 ======= -->
+<section class="section-alt">
+  <div class="container">
+    <p class="section-title">AI導入だけでは<br>成果が出ない理由</p>
+    <p style="text-align:center; font-size:15px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; margin-bottom:20px; color:var(--text-light);">
+      AIツールを入れても利益が増えない会社には共通点があります。
+    </p>
+    <div class="reason-box">
+      <ul class="reason-list">
+        <li>優先順位がない</li>
+        <li>業務フローが整理されていない</li>
+        <li>人とAIの役割分担が曖昧</li>
+        <li>社長依存</li>
+      </ul>
+    </div>
+    <p class="lead-msg">
+      つまり、AI導入の前に<br>
+      <span class="gold">「会社の構造」</span>を整える必要があります。
+    </p>
+  </div>
+</section>
+
+<!-- ======= STEP1 企業診断 ======= -->
+<section class="section">
+  <div class="container">
+    <p class="section-title">なぜ企業診断が<br>必要なのか？</p>
+    <div class="step-card">
+      <span class="step-tag">STEP 1</span>
+      <h3>企業診断でわかること</h3>
+      <ul class="check-list">
+        <li>利益の取りこぼし</li>
+        <li>ボトルネック</li>
+        <li>社長依存度</li>
+        <li>AI化候補</li>
+        <li>90日ロードマップ</li>
+      </ul>
+      <p class="step-result">「何をやるべきか」が明確になる</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======= 診断だけでは変わらない ======= -->
+<section class="section-alt">
+  <div class="container">
+    <p style="text-align:center; font-size:22px; font-weight:700; line-height:1.6; margin-bottom:16px;">
+      ただし、診断だけでは<br>変わりません。
+    </p>
+    <p style="text-align:center; font-size:15px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.9; color:var(--text-light);">
+      多くの会社は「わかった」だけで終わります。<br>
+      重要なのは<strong style="color:var(--gold);">「実装すること」</strong>です。
+    </p>
+  </div>
+</section>
+
+<!-- ======= STEP2 AI組織構築 ======= -->
+<section class="section">
+  <div class="container">
+    <p class="section-title">AI組織構築まで<br>実装します</p>
+    <div class="step-card">
+      <span class="step-tag">STEP 2</span>
+      <h3>AI組織構築</h3>
+      <p class="desc">診断結果をもとに、会社専用のAI組織を作ります。</p>
+      <ul class="check-list">
+        <li>AI役員設計</li>
+        <li>業務フロー設計</li>
+        <li>Notion構築</li>
+        <li>Claude Code設定</li>
+        <li>ChatGPT設計</li>
+        <li>AIチーム構築</li>
+        <li>業務自動化</li>
+        <li>人・AIの役割分担</li>
+      </ul>
+      <p class="step-result">社長の時間を取り戻す</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======= AI組織化後のイメージ ======= -->
+<section class="section-alt">
+  <div class="container">
+    <p class="section-title">AI組織化後のイメージ</p>
+    <div class="image-box">
+      定型業務が手放せて、費用・時間・工数削減が実現。自社にあった最適な業務フローが確立できます。
+    </div>
+    <div class="image-box">
+      社長もチームメンバーも、自分の強みを発揮できる仕事、お客様満足と利益改善に直結するコア業務に集中できます。
+    </div>
+  </div>
+</section>
+
+<!-- ======= サービス全体像 ======= -->
+<section class="section">
+  <div class="container">
+    <p class="section-title">サービス全体像</p>
+    <div class="flow-vert">
+      <div class="flow-box">
+        <span class="step-tag">STEP 1</span>
+        <p class="flow-name">企業診断</p>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">
+        <span class="step-tag">STEP 2</span>
+        <p class="flow-name">AI組織構築</p>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-box">
+        <span class="step-tag">STEP 3</span>
+        <p class="flow-name">顧問サービス</p>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:14px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; margin-top:24px; color:var(--text-light); line-height:1.8;">
+      企業診断からはじめて、今あなたの事業に必要なものだけお選びいただけます。
+    </p>
+  </div>
+</section>
+
+<!-- ======= 料金 ======= -->
+<section class="section-alt">
+  <div class="container">
+    <p class="section-title">ご料金</p>
+    <p style="text-align:center; font-size:18px; font-weight:700; margin-bottom:24px; color:var(--gold);">AI組織化スターターパック</p>
+
+    <div class="price-row">
+      <div class="price-card">
+        <span class="price-step-tag">ステップ❶</span>
+        <h3>オリジナル企業診断</h3>
+        <p class="price-old">通常価格 128,000円</p>
+        <p class="price-new">98,000円<span style="font-size:14px;">（税込）</span></p>
+        <p class="price-note">モニター価格 ※3社ごとに価格改定予定</p>
+      </div>
+
+      <div class="price-card">
+        <span class="price-step-tag">ステップ❷</span>
+        <h3>AI組織構築</h3>
+        <p class="price-old">通常価格 128,000円</p>
+        <p class="price-new">98,000円<span style="font-size:14px;">（税込）</span></p>
+        <p class="price-note">モニター価格 ※3社ごとに価格改定予定</p>
+      </div>
+    </div>
+
+    <div class="price-plus">＋</div>
+
+    <div class="price-set">
+      <p class="set-label">ステップ❶・❷セット</p>
+      <h3>企業診断 ＋ AI組織構築<br>パッケージプラン</h3>
+      <p class="price-old">モニター価格 256,000円</p>
+      <p class="price-new">178,000円<span style="font-size:16px;">（税込）</span></p>
+      <span class="limited">※3社限定（残り1社）</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= なぜこの価格 ======= -->
+<section class="section">
+  <div class="container">
+    <p class="section-title">なぜこの価格で<br>提供するのか</p>
+    <p style="font-size:15px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.9; margin-bottom:16px;">
+      私たちは、AIを導入して業務効率化する前に、社長が夢中になれる経営ができるように、構造から理解し、伴走したいと考えています。
+    </p>
+    <p style="font-size:15px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.9;">
+      なので、最初に事業のことや利益構造を把握し、一社一社異なる、最適な組織や業務フロー、利益構造のご提案からさせていただいています。
+    </p>
+  </div>
+</section>
+
+<!-- ======= CTA ======= -->
+<section class="section-alt" id="cta">
+  <div class="container" style="text-align:center;">
+    <div class="badge-wrap" style="margin-bottom:12px;">
+      <svg class="laurel" viewBox="0 0 38 30" fill="none"><path d="M35 27 C25 25 13 20 6 9" stroke="#B8822A" stroke-width="1.2" fill="none"/><g fill="#C19A4A" fill-opacity="0.85"><ellipse cx="9" cy="11" rx="3.4" ry="1.7" transform="rotate(-58 9 11)"/><ellipse cx="13" cy="16" rx="3.6" ry="1.8" transform="rotate(-46 13 16)"/><ellipse cx="18" cy="20" rx="3.8" ry="1.9" transform="rotate(-32 18 20)"/><ellipse cx="24" cy="23" rx="3.8" ry="1.9" transform="rotate(-20 24 23)"/><ellipse cx="30" cy="25.5" rx="3.6" ry="1.8" transform="rotate(-10 30 25.5)"/></g><g fill="#D4AF61" fill-opacity="0.65"><ellipse cx="11.5" cy="9" rx="3" ry="1.5" transform="rotate(-78 11.5 9)"/><ellipse cx="16" cy="13.5" rx="3.3" ry="1.6" transform="rotate(-66 16 13.5)"/><ellipse cx="21.5" cy="17.5" rx="3.4" ry="1.7" transform="rotate(-52 21.5 17.5)"/><ellipse cx="27.5" cy="21" rx="3.4" ry="1.7" transform="rotate(-40 27.5 21)"/></g></svg>
+      <span class="badge-text">3社限定</span>
+      <svg class="laurel laurel--right" viewBox="0 0 38 30" fill="none"><path d="M35 27 C25 25 13 20 6 9" stroke="#B8822A" stroke-width="1.2" fill="none"/><g fill="#C19A4A" fill-opacity="0.85"><ellipse cx="9" cy="11" rx="3.4" ry="1.7" transform="rotate(-58 9 11)"/><ellipse cx="13" cy="16" rx="3.6" ry="1.8" transform="rotate(-46 13 16)"/><ellipse cx="18" cy="20" rx="3.8" ry="1.9" transform="rotate(-32 18 20)"/><ellipse cx="24" cy="23" rx="3.8" ry="1.9" transform="rotate(-20 24 23)"/><ellipse cx="30" cy="25.5" rx="3.6" ry="1.8" transform="rotate(-10 30 25.5)"/></g><g fill="#D4AF61" fill-opacity="0.65"><ellipse cx="11.5" cy="9" rx="3" ry="1.5" transform="rotate(-78 11.5 9)"/><ellipse cx="16" cy="13.5" rx="3.3" ry="1.6" transform="rotate(-66 16 13.5)"/><ellipse cx="21.5" cy="17.5" rx="3.4" ry="1.7" transform="rotate(-52 21.5 17.5)"/><ellipse cx="27.5" cy="21" rx="3.4" ry="1.7" transform="rotate(-40 27.5 21)"/></g></svg>
+    </div>
+
+    <p style="font-size:18px; font-weight:700; line-height:1.7; margin-bottom:12px;">
+      人を増やさず、AI組織の力で<br>利益効率と顧客満足を高めたい<br>経営者様へ
+    </p>
+    <p style="font-size:14px; font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif; line-height:1.9; margin-bottom:28px; color:var(--text-light);">
+      まずは「どこで利益を失っているか」を見える化し、<br>御社専用のAI組織を作りませんか？
+    </p>
+
+    <a href="https://lin.ee/n4RhDEw" class="btn-cta">AI組織化スターターパックに申し込む</a>
+    <p class="cta-note">【3社限定】※無理な営業はありません</p>
+  </div>
+</section>
+
+<!-- ======= 私たちについて ======= -->
+<section class="section">
+  <div class="container">
+    <p class="section-title">私たちについて</p>
+
+    <div class="profile-card">
+      <h3>菅原 啓寛</h3>
+      <p class="profile-role">AI組織化・システム構築担当</p>
+      <p class="profile-tagline">「会社の構造をつくる」技術者</p>
+      <p class="profile-bio">技術と経営の橋渡しを行うテクニカルPMとして、AI・データ・システムを活用し、社長が意思決定に集中できる組織づくりをご支援しています。</p>
+      <p class="label">【主な実績】</p>
+      <ul>
+        <li>経営歴10年／最大27名の組織経営</li>
+        <li>データセンター保守プロジェクトで最大23名のPMを担当</li>
+        <li>AI組織構築サービスで24名のAIチームを構築・実装</li>
+        <li>AI経営ドック初回モニター3社完売</li>
+        <li>AI成熟度診断ツールを開発・公開</li>
+        <li>国の大規模開発プロジェクトの品質判定を担当</li>
+        <li>大規模データセンターの設計、セキュリティ・ネットワーク・サーバー構築</li>
+      </ul>
+    </div>
+
+    <div class="profile-card">
+      <h3>仲田 めぐみ</h3>
+      <p class="profile-role">利益構造設計担当</p>
+      <p class="profile-tagline">「利益につながる構造をつくる」設計者</p>
+      <p class="profile-bio">個人事業主から法人まで、小規模事業者様の売上・利益改善をご支援しています。</p>
+      <p class="label">【主な実績】</p>
+      <ul>
+        <li>北海道大学理学部卒／経営歴10年</li>
+        <li>不動産投資事業を運営</li>
+        <li>物販事業で外注20名体制を構築</li>
+        <li>Webマーケティング事業を展開</li>
+        <li>Meta広告運用歴6年・年間平均ROAS600％</li>
+        <li>SEO、広告、ステップメール、販売導線構築の支援</li>
+        <li>商品設計、収益モデル設計、販売フロー設計を伴走支援</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-frame -->
+</body>
+</html>
